@@ -5,7 +5,6 @@ pipeline {
     }
     tools {
         dockerTool 'docker'
-        tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
     }
     stages {
         stage('Docker Build') {
@@ -24,7 +23,7 @@ pipeline {
                 stage('SonarQube Analysis') {
             steps {
                 script {
-                    def sonarScanner = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    def sonarScanner = tool name:'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     withSonarQubeEnv(credentialsId: 'sonar-token') {
                         sh "${sonarScanner}/bin/sonar-scanner -Dsonar.projectKey=music-player"
                     }
