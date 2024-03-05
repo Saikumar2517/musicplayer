@@ -2,34 +2,44 @@ pipeline {
     agent any
 
     tools {
-        nodejs:'node'
+        node 'node'
     }
 
-    stages('checkout') {
-        stage {
+    stages {
+        stage('Checkout') {
             steps {
                 git branch: 'main', credentialsId: 'git-password', url: 'https://github.com/Saikumar2517/musicplayer.git'
             }
         }
-    }
-
-    stage('Install Dependencies') {
-        steps {
-            sh 'npm install'
-        }
-    }
-
-    stage('Build') {
-        steps {
-            sh 'npm run build'
-        }
-    }
-    stage('Run SonarQube Analysis') {
-        steps {
-            script {
-                withSonarQubeEnv(credentialsId: 'sonar') {
-                }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
             }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+    // stage('Run SonarQube Analysis') {
+    //     steps {
+    //         // Run SonarQube analysis
+    //         script {
+    //             def scannerHome = tool 'SonarQube Scanner';
+    //             withSonarQubeEnv(credentialsId: 'sonar') {
+    //             }
+    //         }
+    //     }
+    // }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
+
