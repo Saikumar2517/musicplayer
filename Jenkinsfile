@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         nodejs 'node'
-      
+         sonarqube 'sonar-scanner'
     }
 
     stages {
@@ -20,6 +20,20 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm run build'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    sh '''\
+            sonar-scanner \
+              -Dsonar.projectKey=music-player \
+              -Dsonar.sources=. \
+              -Dsonar.host.url=http://localhost:9000 \
+              -Dsonar.login=922db5feb5b3895a1b185e4bbd3062e8b563f9b4
+            '''
+                }
             }
         }
     }
