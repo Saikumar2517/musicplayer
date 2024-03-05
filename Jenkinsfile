@@ -21,16 +21,16 @@ pipeline {
                 sh 'npm run build'
             }
         }
-    // stage('Run SonarQube Analysis') {
-    //     steps {
-    //         // Run SonarQube analysis
-    //         script {
-    //             def scannerHome = tool 'SonarQube Scanner';
-    //             withSonarQubeEnv(credentialsId: 'sonar') {
-    //             }
-    //         }
-    //     }
-    // }
+    stage('Run SonarQube Analysis') {
+        steps {
+            // Run SonarQube analysis
+            script {
+                def scannerHome = tool 'SonarQube Scanner';
+                withSonarQubeEnv(credentialsId: 'sonar') {
+                }
+            }
+        }
+    }
     }
 
     post {
