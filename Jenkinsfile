@@ -27,7 +27,7 @@ pipeline {
             script {
                sonar-scanner \
   -Dsonar.projectKey=musicplayer \
-  -Dsonar.sources=. \
+  -Dsonar.sources= /home/saikumar/musicplayer
   -Dsonar.host.url=http:localhost:9000
   -Dsonar.login=e3219738caba13460e93fcc0886ce1d24713c8c2
             }
