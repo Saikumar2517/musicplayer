@@ -24,12 +24,14 @@ pipeline {
         }
     stage('Run SonarQube Analysis') {
         steps {
+            // Run SonarQube analysis
             script {
-               'sonar-scanner' \
-  -Dsonar.projectKey='musicplayer' \
-  -Dsonar.sources= '/home/saikumar/musicplayer'
-    -Dsonar.host.url='http://localhost:9000'/
-  -Dsonar.login=e3219738caba13460e93fcc0886ce1d24713c8c2
+                sonar-scanner \
+  -Dsonar.projectKey=music-player \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=922db5feb5b3895a1b185e4bbd3062e8b563f9b4
+               
             }
         }
     }
