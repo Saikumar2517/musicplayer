@@ -5,6 +5,7 @@ pipeline {
     }
     tools {
         dockerTool 'docker'
+        tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
     }
     stages {
         stage('Docker Build') {
