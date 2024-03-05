@@ -3,6 +3,9 @@ pipeline {
     environment {
         DOCKER_REGISTRY = "saidocker999/musicplayer"
     }
+    tools{
+        dockerTool 'docker'
+    }
     stages {
         stage('Docker Build') {
             steps {
