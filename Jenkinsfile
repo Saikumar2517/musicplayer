@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    tools{
+    tools {
         nodejs 'node'
-    //   SonarQube scanner 'sonar'
+    // tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
     }
 
     stages {
@@ -26,13 +26,13 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    sh '''\
-            sonar-scanner \
-              -Dsonar.projectKey=music-player \
-              -Dsonar.sources=. /home/saikumar/musicplayer\
-              -Dsonar.host.url=http://localhost:9000 \
-              -Dsonar.login=922db5feb5b3895a1b185e4bbd3062e8b563f9b4
-            '''
+                    def sonarScanner = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    withSonarQubeEnv(credentialsId: 'sonar') {
+                        sh "${sonarScanner}/bin/sonar-scanner -Dsonar.projectKey=sonar-music-player \
+                                            -Dsonar.sources=. \
+                                            -Dsonar.host.url=http://localhost:9000 \
+                                            -Dsonar.login=f68a023e29dfb8a603510738d35652fc62e4fe92"
+                    }
                 }
             }
         }
