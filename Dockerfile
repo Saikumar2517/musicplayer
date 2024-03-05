@@ -1,8 +1,8 @@
 FROM node:15.1.0-alpine
 
-RUN mkdir /app
 
-WORKDIR /app
+WORKDIR /home/saikumar/musicplayer
+
 
 COPY package*.json ./
 
