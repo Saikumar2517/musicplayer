@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     def sonarScanner = tool name:'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    withSonarQubeEnv(credentialsId: 'sonar-token') {
+                    withSonarQubeEnv(credentialsId: 'sonar-password') {
                         sh "${sonarScanner}/bin/sonar-scanner -Dsonar.projectKey=music-player"
                     }
                 }
