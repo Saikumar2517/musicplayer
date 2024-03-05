@@ -25,8 +25,8 @@ pipeline {
         steps {
             // Run SonarQube analysis
             script {
-                def scannerHome = tool 'SonarQube Scanner';
-                withSonarQubeEnv(credentialsId: 'sonar') {
+                def scannerHome = tool 'sonar';
+                withSonar(credentialsId: 'sonar') {
                 }
             }
         }
