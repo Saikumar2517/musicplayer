@@ -1,47 +1,21 @@
 pipeline {
     agent any
-
-    tools {
-        nodejs 'node'
-    // tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+    environment {
+        DOCKER_REGISTRY = "saidocker999/musicplayer"
     }
-
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', credentialsId: 'git-password', url: 'https://github.com/Saikumar2517/musicplayer.git'
-            }
-        }
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'npm run build'
-            }
-        }
-
-        stage('SonarQube Analysis') {
+        stage('Docker Build') {
             steps {
                 script {
-                    def sonarScanner = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    withSonarQubeEnv(credentialsId: 'sonar-token') {
-                        sh "${sonarScanner}/bin/sonar-scanner -Dsonar.projectKey=music-player"
-                    }
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-password') {
+
+                            def customImage = docker.build("${DOCKER_REGISTRY}:${env.BUILD_ID}")
+
+                            /* Push the container to the custom Registry */
+                            customImage.push()
+                        }
                 }
             }
         }
     }
-
-    post {
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
-        }
-    }
 }
-
