@@ -3,7 +3,8 @@ pipeline {
 
     tools {
         nodejs 'node'
-        sonar 'sonar'
+       hudson.plugins.sonar.SonarRunnerInstallation 'sonar-scanner'
+
     }
 
     stages {
