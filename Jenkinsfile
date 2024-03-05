@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         nodejs 'node'
-    //   'sonar 'sonar-scanner'
+      sonar 'sonar'
 
 
     }
