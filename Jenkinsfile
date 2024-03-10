@@ -30,5 +30,12 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                script {
+                    sshPublisher(publishers: [sshPublisherDesc(configName: 'aws-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "docker pull ${DOCKER_REGISTRY}:${env.BUILD_ID} && docker container rm -f music_player && docker run --name music_player -p 3000:3000 -d ${DOCKER_REGISTRY}:${env.BUILD_ID} ", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
+            }
+        }
     }
 }
