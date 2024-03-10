@@ -20,7 +20,7 @@ pipeline {
             }
         }
 
-                stage('SonarQube Analysis') {
+        stage('SonarQube Analysis') {
             steps {
                 script {
                     def sonarScanner = tool name:'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
@@ -29,6 +29,6 @@ pipeline {
                     }
                 }
             }
-                }
+        }
     }
 }
